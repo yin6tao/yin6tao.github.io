@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>硬件之芯</title>
+	<link rel="stylesheet" href="css/myworks.css" />
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	<script src="js/common.js"></script>
+	<script src="js/move.js"></script>
+	<script src="js/highlight.min.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<script>
+		'use strict';
+		window.onload = function () {
+			var oClock = document.querySelector('#clock');
+			var aImg = oClock.getElementsByTagName('img');
+			function tick() {
+				var oDate = new Date();
+				var h = oDate.getHours();
+				var m = oDate.getMinutes();
+				var s = oDate.getSeconds();
+				var str = toDou(h) + toDou(m) + toDou(s);
+				for (var i = 0; i < aImg.length; i++) {
+					//aImg[i].style.top=-35*str.charAt(i)+'px';
+					startMove(aImg[i], { top: -35 * str.charAt(i) }, { time: 300 });
+				}
+			}
+			tick();
+			setInterval(tick, 1000);
+			; (function () {
+				var oScroll = document.getElementById("scrollTop");
+				var oL2 = oScroll.children[0];
+				var oL3 = oScroll.children[1];
+				var oL4 = oScroll.children[2];
+				var bOk = false;
+				var timer = null;
+				function fnScrollTop(ev) {
+					if (bOk) {
+						return
+					}
+					var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+					if (scrollTop >= 100) {
+						oScroll.style.opacity = 1
+					} else {
+						oScroll.style.opacity = 0
+					}
+				}
+				window.addEventListener("scroll", fnScrollTop, false);
+				window.addEventListener("load", fnScrollTop, false);
+				window.addEventListener("resize", fnScrollTop, false);
+				oScroll.onclick = function () {
+					addClass(this, "on");
+					bOk = true;
+					oScroll.style.WebkitTransition = "0.5s all ease-in";
+					oScroll.style.MozTransition = "0.5s all ease-in";
+					oScroll.style.msTransition = "0.5s all ease-in";
+					oScroll.style.transition = "0.5s all ease-in";
+					setTimeout(function () {
+						oScroll.style.WebkitTransform = "translateY(-3000px)";
+						oScroll.style.MozTransform = "translateY(-3000px)";
+						oScroll.style.msTransform = "translateY(-3000px)";
+						oScroll.style.transform = "translateY(-3000px)";
+					},
+						300);
+					var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+					var clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+					var start = scrollTop;
+					var iTarget = 0;
+					var dis = iTarget - start;
+					var time = 1000;
+					var count = Math.floor(1000 / 30);
+					var n = 0;
+					timer = setInterval(function () {
+						n++;
+						var a = 1 - n / count;
+						var cur = start + dis * (1 - Math.pow(a, 3));
+						document.documentElement.scrollTop = document.body.scrollTop = cur;
+						if (n == count) {
+							clearInterval(timer);
+							removeClass(oScroll, "on");
+							oScroll.style.WebkitTransition = "";
+							oScroll.style.MozTransition = "";
+							oScroll.style.msTransition = "";
+							oScroll.style.transition = "";
+							oScroll.style.WebkitTransform = "translateY(0)";
+							oScroll.style.MozTransform = "translateY(0)";
+							oScroll.style.msTransform = "translateY(0)";
+							oScroll.style.transform = "translateY(0)";
+							oScroll.style.opacity = 0;
+							bOk = false
+						}
+					},
+						30)
+				};
+				var oTT = document.querySelector(".toptop");
+				oTT.onclick = function () {
+					document.documentElement.scrollTop = document.body.scrollTop = 0
+				}
+			})();
+		};
+	</script>
+</head>
+
+<body>
+	<header>
+		<ul id="clock">
+			<li><img src="img/num.png" /></li>
+			<li><img src="img/num.png" /></li>
+			<li class="dotdot"></li>
+			<li><img src="img/num.png" /></li>
+			<li><img src="img/num.png" /></li>
+			<li class="dotdot"></li>
+			<li><img src="img/num.png" /></li>
+			<li><img src="img/num.png" /></li>
+		</ul>
+		<div class="nav">
+			<ul>
+				<li><a href="index.html"></a></li>
+				<li><a href="index.html"></a></li>
+				<li><a href="index.html"></a></li>
+			</ul>
+		</div>
+		<div class="point">学习资料</div>
+		<div class="hd-bot"></div>
+	</header>
+	<div class="content">
+		<div class="rotLeft rotTop pageBack"></div>
+		<div class="rotRight rotTop pageBack"></div>
+		<div class="container page cn">
+			<section class="main-tit">
+				<h2 class="subtitle">硬件学习资料</h2>
+				<h2 class="subtitle"><a href="shouye.html">首页</a></h2>
+				<h2 class="subtitle"><a href="wangzhankefu.html">网站客服</a></h2>
+				<h2 class="subtitle"><a href="zhuangjituijian.html">装机推荐</a></h2>
+				<h2 class="subtitle"><a href="suipianzhishi.html">碎片知识</a></h2>
+				<div class="scissors"></div>
+				<div class="pageTitle">硬件学习</div>
+				<blockquote>
+					<p> 本网站以满足学生和爱好者在学习硬件装机和计算机硬件测评方面的需求。旨在提供易于理解的学习资源，以促进硬件学习的普及和推广。</p>
+				</blockquote>
+			</section>
+			<!-- css -->
+			<section class="main-tit">
+				<div class="scissors"></div>
+				<div class="pageTitle">计算机系统类</div>
+				<blockquote>
+					<p> 计算机系统：由计算机硬件系统和软件系统组成的综合体。 计算机硬件：指计算机中的电子线路和物理装置。 计算机软件：计算机运行所需的程序及相关资料。</p>
+				</blockquote>
+				<div class="web-bg">
+					<a href="#" target="_blank">
+						<img src="ziliao/8.png" alt="Meilishuo" />
+					</a>
+					<a href="#" target="_blank">
+						<img src="ziliao/9.PNG" alt="Website 2" />
+					</a>
+					<a href="10.html" target="_blank">
+						<img src="ziliao/10.png" alt="Website 3" />
+					</a>
+				</div>
+			</section>
+			<section class="main-tit">
+				<div class="scissors"></div>
+				<div class="pageTitle">计算机设计类</div>
+				<blockquote>
+					<p>计算机设计是一门以计算机技术为基础，通过图像软件的应用，创造出具有艺术美感、可读性、功能性等特点的视觉传达作品的专业。</p>
+				</blockquote>
+				<div class="web-bg">
+					<a href="#" target="_blank">
+						<img src="ziliao/5.png" alt="Meilishuo" />
+					</a>
+					<a href="#" target="_blank">
+						<img src="ziliao/6.PNG" alt="Website 2" />
+					</a>
+					<a href="#" target="_blank">
+						<img src="ziliao/7.jpg" alt="Website 3" />
+					</a>
+				</div>
+			</section>
+
+
+			<section class="main-tit">
+				<div class="scissors"></div>
+				<div class="pageTitle">计算机结构类</div>
+				<blockquote>
+					<p>计算机体系结构是指那些能够被程序员所见到的计算机系统的属性，即概念性的结构与功能特性。计算机系统的属性通常是指用机器语言编程的程序员所看到的传统机器的属性，包括指令集、数据类型、存储器寻址技术、I/O机理等，大都属于抽象的属性。
+					</p>
+				</blockquote>
+				<div class="web-bg">
+					<a href="#" target="_blank">
+						<img src="ziliao/2.jpg" alt="Meilishuo" />
+					</a>
+					<a href="#" target="_blank">
+						<img src="ziliao/3.jpg" alt="Website 2" />
+					</a>
+					<a href="#" target="_blank">
+						<img src="ziliao/4.PNG" alt="Website 3" />
+					</a>
+				</div>
+			</section>
+		</div>
+		<div class="rotLeft rotBottom pageBack"></div>
+		<div class="rotRight rotBottom pageBack"></div>
+	</div>
+	<div id="footer-nav">
+		<a href="#" class="toptop">硬件学习资料</a> |
+		<a href="shouye.html">首页</a> |
+		<a href="wangzhankefu.html">网站客服</a> |
+		<a href="suipianzhishi.html">碎片知识</a> |
+		<a href="zhuangjituijian.html">装机推荐</a>
+	</div>
+	<footer>
+		<div id="footerImg"></div>
+	</footer>
+	<div id="scrollTop">
+		<span class="level2"></span>
+		<span class="level3"></span>
+		<span class="level4"></span>
+	</div>
+</body>
+
+</html>
